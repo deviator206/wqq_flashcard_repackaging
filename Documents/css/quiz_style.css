@@ -1,0 +1,926 @@
+/*
+ * HTML5 Boilerplate
+ *
+ * What follows is the result of much research on cross-browser styling.
+ * Credit left inline and big thanks to Nicolas Gallagher, Jonathan Neal,
+ * Kroc Camen, and the H5BP dev community and team.
+ */
+
+/* ==========================================================================
+   Base styles: opinionated defaults
+   ========================================================================== */
+
+html,
+button,
+input,
+select,
+textarea {
+    color: #666;
+}
+
+body {
+    /*font-size: 1em;
+    line-height: 1.4;*/
+	font-family: Arial Regular;
+}
+
+a {
+    color: #00e;
+}
+
+a:visited {
+    color: #551a8b;
+}
+
+a:hover {
+    color: #06e;
+}
+
+/*
+ * Remove the gap between images and the bottom of their containers: h5bp.com/i/440
+ */
+
+img {
+    vertical-align: middle;
+}
+
+/*
+ * Remove default fieldset styles.
+ */
+
+fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+/*
+ * Allow only vertical resizing of textareas.
+ */
+
+textarea {
+    resize: vertical;
+}
+
+
+
+
+
+/* ==========================================================================
+   Helper classes
+   ========================================================================== */
+
+/* Prevent callout */
+
+.nocallout {
+    -webkit-touch-callout: none;
+}
+
+.pressed {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+/* A hack for HTML5 contenteditable attribute on mobile */
+
+textarea[contenteditable] {
+    -webkit-appearance: none;
+}
+
+/* A workaround for S60 3.x and 5.0 devices which do not animated gif images if
+   they have been set as display: none */
+
+.gifhidden {
+    position: absolute;
+    left: -100%;
+}
+
+/*
+ * Image replacement
+ */
+
+.ir {
+    background-color: transparent;
+    background-repeat: no-repeat;
+    border: 0;
+    direction: ltr;
+    display: block;
+    overflow: hidden;
+    text-align: left;
+    text-indent: -999em;
+}
+
+.ir br {
+    display: none;
+}
+
+/*
+ * Hide from both screenreaders and browsers: h5bp.com/u
+ */
+
+.hidden {
+    display: none !important;
+    visibility: hidden;
+}
+
+/*
+ * Hide only visually, but have it available for screenreaders: h5bp.com/v
+ */
+
+.visuallyhidden {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+/*
+ * Extends the .visuallyhidden class to allow the element to be focusable
+ * when navigated to via the keyboard: h5bp.com/p
+ */
+
+.visuallyhidden.focusable:active,
+.visuallyhidden.focusable:focus {
+    clip: auto;
+    height: auto;
+    margin: 0;
+    overflow: visible;
+    position: static;
+    width: auto;
+}
+
+/*
+ * Hide visually and from screenreaders, but maintain layout
+ */
+
+.invisible {
+    visibility: hidden;
+}
+
+/**
+ * Clearfix helper
+ * Used to contain floats: h5bp.com/q
+ */
+
+.clearfix:before,
+.clearfix:after {
+    content: "";
+    display: table;
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+/*
+ * For IE 6/7 only
+ * Include this rule to trigger hasLayout and contain floats.
+ */
+
+.clearfix {
+    *zoom: 1;
+}
+
+/* ==========================================================================
+   Author's custom styles
+   ========================================================================== */
+   
+
+
+.outerDiv {
+	/*width: 918px;
+	height: 600px;*/
+	width: 918px;
+	height: 595px;
+	margin: 0 auto;
+	position: relative;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	-webkit-user-select:none;
+}
+.mainDiv {
+	/*width: 795px;
+	height: 600px;*/
+	width: 875px;
+       height: 569px;
+       border: #CBCCCC solid 13px;
+       
+}
+
+.hummingCloseButton {
+	position: absolute;
+	margin-top: 0px;
+	font-size: 15px;
+	font-weight: bold;
+	color: white;
+	margin-left: 800px;
+	margin-top: 600px;
+}
+
+.hummingBirdHolder {
+	width: 670px;
+	height: 600px;
+	margin-left: 140px;
+	margin-top: 16px;
+	z-index: 100;
+	
+}
+
+.rgtMenu {
+	width: 130px;
+	height: 595px;
+	position: absolute;
+	background-color: #CBCCCC;
+	float: right;
+	right: 0;
+	top: 0px;
+}
+.introScreenLeft
+{
+	width: 462px;
+	height: 550px;
+	float: left;
+	display: inline-block;
+}
+.introScreen{
+	margin-top: -57px;
+	font-size: 14px;
+	margin-left: 416px;
+	
+}
+
+.introScreen ul{
+	margin: 82px 0 0 32px;
+    padding: 0;
+	} 
+
+.introScreen li{
+	margin: 0 5px 0 0;
+	font-size:14px;
+	color: #666;
+	line-height:22px;
+} 
+
+
+.introScreen p{
+	line-height:27px;
+	font-size: 14px!important;
+}
+
+.intropara{
+	margin-left:30px;
+}
+
+.introparaLeft{
+	margin-left:15px;
+}
+
+.introImgs{
+	width: 364px;
+	height: 311px;
+	float: left;
+	padding: 14px;
+	/*margin: 10px;*/
+	margin-left: 14px;
+	padding-top: 2px;
+}
+
+
+
+
+.playButton {
+	background-color: #CCCCCC;
+    color: #666;
+    float: left;
+    font-size: 20px;
+    /*font-weight: bold;*/
+    height: 43px;
+    line-height: 40px;
+   /* margin-left: 15px;*/
+    margin-top: 33px;
+    position: static;
+    text-align: center;
+    width: 131px;
+	cursor:pointer;
+}
+
+.playButton:hover {
+	background-color: #666;
+	color: #FFF;
+}
+
+.figTitle {
+	font-size: 13px;
+	font-weight: bold;
+	/*margin-left: 17px;*/
+	margin-top: 5px;
+}
+
+.hwpList ol {
+	margin: 59px 0 0 43px !important;
+	padding: 0 !important;
+}
+
+.hwpList li {
+	margin: 0 18px 0 20px !important;
+	font-size: 18px !important;
+	color: #666 !important;
+	line-height: 27px !important;
+}
+
+.howToPlayPara {
+	/*margin-left: 43px;
+	font-size: 16px;
+	color: #666;
+	line-height: 22px;*/
+	margin-left: 43px !important;
+	font-size: 18px;
+	line-height: 22px;
+}
+
+.backButton {
+	background-color: #CCCCCC;
+	color: #666;
+	float: left;
+	font-size: 20px;
+	/*font-weight: bold;*/
+	font-weight: normal;
+	height: 43px;
+	line-height: 40px;
+	margin-left: 28px;
+	margin-top: 16px;
+	position: static;
+	text-align: center;
+	width: 100px;
+	cursor: pointer;
+}
+
+.marginshift
+{
+	margin-left: 5px !important;
+
+}
+.gameplaybackButton
+{
+	margin-left: 15px;
+	width: 107px!Important;
+}
+.backButton:hover {
+	background-color: #666;
+	color: #FFF;
+}
+
+.anim_play_now{
+background-color: #CCC;
+color: #666;
+float: left;
+font-size: 20px;
+font-weight: normal;
+height: 43px;
+line-height: 40px;
+right:400px;
+padding: 15px;
+padding-top: 0px;
+padding-bottom: 0px;
+position: relative;
+text-align: center;
+width: 130px;
+cursor: pointer;
+top: 210px;
+opacity: 0;
+}
+
+.anim_play_now:hover
+{
+	color:#FFFFFF;
+	background-color:#666;
+}
+
+
+.anim_how_to_play:hover
+{
+	color:#FFFFFF;
+	background-color:#666;
+}
+.anim_how_to_play
+{
+	background-color: #CCC;
+color: #666;
+float: left;
+font-size: 20px;
+font-weight: normal;
+height: 43px;
+line-height: 40px;
+right: 240px;
+position: relative;
+text-align: center;
+width: 130px;
+cursor: pointer;
+padding: 15px;
+padding-top: 0px;
+padding-bottom: 0px;
+top: 150px;
+opacity: 0;
+
+}
+
+.howPlayBtn {
+		background-color: #CCCCCC;
+	color: #666;
+	float: left;
+	font-size: 20px;
+	/*font-weight: bold;*/
+	font-weight: normal;
+	height: 43px;
+	line-height: 40px;
+	margin-left: 20px;
+	margin-top: 16px;
+	position: static;
+	text-align: center;
+	width: 100px;
+	cursor: pointer;
+	
+}
+
+.congEndTxt {
+	color: #3F8FCC;
+	margin-top: 60px;
+	margin-left: 60px;
+	padding-bottom: 30px !important;
+}
+
+.congEndPara {
+	margin-left: 60px !important;
+	font-size: 22px;
+	color: #DC4510;
+	line-height: 18px;
+}
+
+.clickButton {
+	background-color: #CCCCCC;
+	color: #666;
+	float: left;
+	font-size: 20px;
+	/*font-weight: bold;*/
+	/*font-weight: bold;*/
+	font-weight: normal;
+	height: 43px;
+	line-height: 40px;
+	margin-left: 62px;
+	margin-top: 17px;
+	position: static;
+	text-align: center;
+	width: 300px;
+	cursor: pointer;
+}
+
+.clickButton:hover {
+	background-color: #666;
+	color: #FFF;
+}
+
+.levelEndImg {
+	width: 78%;
+	background-repeat: no-repeat;
+	height: 330px;
+	position: absolute;
+	margin-left: 470px;
+	margin-top: 100px;
+	display: inline-block;
+}
+.peacockImg {
+	/*background:url(../images/congratsEnd.png) no-repeat;*/
+	height: 276px;
+	width: 492px;
+	float: right;
+	margin-top: -23px;
+}
+
+.successTxt {
+	margin-left: 50px !important;
+	font-size: 24px !important;
+	color: #666;
+	line-height: 8px;
+}
+
+.successTxt span {
+	font-weight: bold;
+	margin-left: 5px !important;
+}
+
+p.congEndTxt2 {
+	margin-top: 50px !important;
+	margin-left: 50px !important;
+	font-size: 40px;
+	padding-top: 50px;
+}
+
+.levlComplTxt {
+	font-size: 18px !important;
+	line-height: 25px !important;
+	color: #DC4510 ;
+	margin-left: 50px !important;
+}
+
+.nextButton {
+	background-color: #CCCCCC !important;
+	color: #666 !important;
+	float: left !important;
+	font-size: 20px !important;
+	/*font-weight: bold !important;*/
+	font-weight: normal !important;
+	height: 43px !important;
+	line-height: 40px !important;
+	margin-left: 30px !important;
+	margin-top: 17px !important;
+	position: static !important;
+	text-align: center !important;
+	width: 140px !important;
+	cursor: pointer !important;
+}
+
+.nextButton:hover {
+	background-color: #666 !important;
+	color: #FFF !important;
+}
+.nxtLink{
+	margin-top: 55px !important;
+}
+
+.hnpCustomLink {
+	font-size: 18px !important;
+	line-height: 25px !important;
+	margin-left: 50px !important;
+	font-weight: bold !important;
+}
+/*------ QUESTION DISPLAY SCREEN -------*/
+.levelTxt {
+	height: 20px;
+	position: absolute;
+	top: 48px;
+	font-size: 17px;
+	margin-left: 32px;
+}
+
+.qCont {
+	position: relative;
+	float: left;
+	height: auto;
+	width: 95%;
+	top: 62px;
+	left: 23px;
+}
+
+.levelTxt span {
+	font-weight: bold;
+}
+
+.questDiv {
+	width: 300px;
+	height: auto;
+	margin: 10px;
+	position: relative;
+}
+
+.quesTxt {
+	color: #A0B3D3;
+	font-size: 22px;
+	position: relative;
+	float: left;
+}
+
+.ansBox {
+	position: relative;
+	height: auto;
+	float: left;
+	width: 100%;
+}
+
+.ansTxt {
+	color: #666;
+	font-size: 16px;
+font-weight: bold;
+position: relative;
+margin: 18px;
+margin-left: 0;
+padding: 3px;
+width: 250px;
+}
+.spacingKam
+{
+margin: 9px;
+}
+
+.spacingMore
+{
+padding-bottom: 23px
+}
+.ansTxt:hover {
+	color: #DC4510;
+	cursor: pointer;
+}
+
+.qeusImg {
+	width: 390px;
+height: auto;
+margin-left: 309px;
+position: absolute;
+text-align: right
+}
+
+.perc {
+	color: #777;
+	font-size: 16px;
+font-weight: bold;
+margin-top: 28px;
+text-align: left;
+margin-left: 19px;
+}
+
+.perc span {
+	color: #FFFFFF;
+	font-size: 34px;
+}
+
+.footer_stc {
+	height: 100px;
+	width: 687px;
+	bottom: 0px;
+	/*border-top: 2px #CBCCCC solid;*/
+	position: absolute;
+	/*top: 502px;
+	left: 50px;
+	*/
+	top: 480px;
+	
+}
+.footer_stc_color
+{
+	position: absolute;
+	margin-top: -89px;
+	left: 0px;
+	width: 743px;
+	overflow: hidden;
+}
+.footer_stc img {
+	/*position: relative;
+	margin-right: 30px;
+	margin-top: 17px;*/
+}
+
+
+/*---------- OVERLAY SCREEN ----------- */
+.overlayScreenCSS{
+	top: 0;
+	left: 0;
+	height: 627px;
+	width: 900px;
+	
+	/*opacity: 0.8;*/
+	display: none;
+	position: absolute;
+	z-index: 10;
+}
+
+.opaqueScreenCSS_1
+{
+	height: 560px;
+position: absolute;
+top: 16px;
+left: 160px;
+	display: none;
+}
+
+
+.opaqueScreenCSS
+{
+	width: 100%;
+	height: 594px;
+	position: absolute;
+	top: 0;
+	background-color: black;
+	opacity: 0.5;
+	display: none;
+}
+
+
+
+.closeOverlay{
+	/*border: #0C3 solid 1px;*/
+
+bottom: 582px;
+position: absolute;
+right: 140px;
+height: 31px;
+width: 75px;
+z-index: 10;
+font-weight: bold;
+cursor: pointer;
+
+}
+
+
+.overlayScreenCSS_ForQuestion {
+	top: 0;
+	left: 0;
+	height: 627px;
+	width: 900px;
+	display: none;
+	position: absolute;
+	z-index: 10;
+}
+.opaqueScreenCSS_ForQuestion {
+	font-family: verdana,arial,helvetica,sans-serif;
+	color: white;
+	/*background-color:#9C9999;*/
+	font-size: 34px;
+	width: 420px;
+	height: 103px;
+	position: absolute;
+	/*top: 170px;
+	left: 236px;*/
+	top: 100px;
+	left: 160px;
+
+	display: none;
+	text-align:center;
+	padding-top:78px;
+	font-style:24px;
+	
+	
+}
+
+.closeOverlay_ForQuestion {
+font-family: verdana,arial,helvetica,sans-serif;
+bottom: 423px;
+position: absolute;
+right: 170px;
+height: 27px;
+width: 82px;
+z-index: 10;
+cursor: pointer;
+color: white;
+background-image: url("data:image/gif;base64,R0lGODlhAQABAJH/AP///wAAAMDAwAAAACH5BAEAAAIALAAAAAABAAEAQAICVAEAOw==");
+	
+	
+}
+
+
+.playagain_button_ongame_end
+{
+	margin-top: -190px!Important;
+	width: 120px!Important;
+	margin-left: 120px!Important;
+}
+
+#loadingMessage
+{
+	
+	margin-left: 110px;
+	font-size: 25px;
+	margin-top: -30px
+}
+.endNormal
+{
+	color :#666666;
+}
+
+.endCongrats_level1
+{
+	color :#6487bf;
+}
+
+
+.endCongrats_level2
+{
+	color :#2f9b45;
+}
+
+.endCongrats_level3
+{
+	color :#9a2f99;
+}
+
+.endCongrats_level4
+{
+	color :#0e86a9;
+}
+
+
+.endMain_level1
+{
+	color :rgb(0, 0, 255);
+	
+}
+.endMain_level2
+{
+	color :rgb(0, 0, 255);
+}
+.endMain_level4
+{
+	color :rgb(0, 0, 255);
+}
+.endMain_level3
+{
+	color :rgb(0, 0, 255);
+}
+
+
+.bulletIndent
+{
+	text-indent: -5px !Important; 
+}
+
+.introFontSizes
+{
+font-size: 14px !Important;
+}
+
+.introMainHeadLineText
+{
+	font-size: 23px !Important;
+	padding-bottom: 14px !Important;
+}
+
+.introParaSplStyling
+{
+line-height: 24px;
+font-size: 14px ! Important;
+margin-top: -14px ! Important;
+
+}
+
+.li_styling
+{
+	line-height: 24px;
+	font-size: 14px ! Important;
+}
+
+.para_styling_stc
+{
+line-height: 24px;
+font-size: 14px ! Important;
+width: 352px;
+}
+
+.clickHereMore_Hack
+{
+position: absolute;
+margin-top: -265px;
+margin-left: 33px
+}
+
+
+.bird_anim
+{
+	height: "100px";
+	width: "auto";
+	display: none;
+}
+
+.bird_peacock_anim
+{
+	display: none;
+}
+
+#new_intro_Anim
+{
+	display: block;
+opacity: 1;
+overflow: hidden;
+width: 800px;
+
+position: absolute;
+height: 95%;
+width: 95%;
+}
+
+
+.anim_content
+{
+	width: 600px;
+right: 242px;
+position: relative;
+font-size: 32px;
+
+opacity: 0;
+bottom: 90px;
+}
+
+
+.downloadTheImage{
+	font-weight: bold;
+	color: white!Important;
+	/*border: #0C3 solid 10px;*/
+	bottom: 55px;
+position: absolute;
+left: 762px;
+
+	height: 15px;
+	width: 127px;
+	z-index: 11;
+	cursor: pointer;
+
+}
