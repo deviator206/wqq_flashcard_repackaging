@@ -217,7 +217,7 @@ var resource_data = {
 		'loading' : 'loadingScreen',
 		'landing' : 'landingPage'
 	},
-	htmlentity : ['loading_screen_ui'],
-	appMode : 0, // 0 -developer mode OR 1 - live mode OR 2 -live with no console
+	htmlentity : ['loading_screen_ui','landing_screen_ui'],
+	appMode : 1, // 0 - xtreme debugging  mode OR 1 - dev mode OR 2 -live with no console
 
 }
