@@ -9,7 +9,7 @@
 
 	</head>
 	<body>
-<script type="text/javascript">
+		<script type="text/javascript">
 			/* STARTING POINT*/
 			var _gMainApplication
 			var documentPath = "Documents/";
@@ -24,28 +24,29 @@
 					case "img":
 						//console.log(' STR ' + str);
 						str = str.replace("img/", "");
-						sTemp += "" + imagesPath + "origami/"
+						sTemp += "" + imagesPath + "quiz/"
 						break;
 				}
 				sTemp += "" + str;
 				return sTemp;
 			}
 
-			//var arrScriptTags = new Array('css/style_stc.css', 'js/lib/jquery-1.7.2.min.js','js/lib/PxLoader.js', 'js/lib/jsAnim.js', 'js/lib/PxLoaderImage.js', 'js/model.js', 'js/screens/loadingScreen.js','js/screens/GameOpeningPage.js', 'js/screens/splashScreen.js', 'js/screens/howtoplayScreen.js', 'js/screens/gameplayScreen.js', 'js/screens/levelEndScreen.js', 'js/screens/winnerScreen.js', 'js/application.js');
-			var arrScriptTags = new Array('css/style_stc.css', 'js/lib/jquery-1.7.2.min.js', 'js/app.js');
+			var arrScriptTags = new Array('css/quiz_style.css', 'js/lib/jquery-1.7.2.min.js', 'js/misc.js', 'js/quiz_data.js', 'js/loader.js', 'js/quiz.js');
 			var arrScriptIndex = 0;
-			var arrDivNames = new Array('loading_script_tags', 'loadingScreen', 'splashScreen', 'howtoplayScreen', 'new_intro_Anim', 'questionScreen', 'sidePanel', 'levelEndScreen', 'winnerScreen', 'overlayScreen', 'overlayScreen_ForQuestion')
+			var arrDivNames = new Array('loading_script_tags','landingPage')
 			function makeAllInvisible() {
 				for (var i = 0; i < arrDivNames.length; i++)
 					document.getElementById(arrDivNames[i]).style.display = 'none'
 			}
 
 			function startLoadingAssets() {
-				if (arrScriptIndex == 0) {
-					//makeAllInvisible();
-					document.getElementById('appContainer').style.display = "none"
-					document.getElementById('loading_script_tags').style.display = "block"
-				}
+				/*if (arrScriptIndex == 0) {
+				 //makeAllInvisible();
+				 document.getElementById('appContainer').style.display = "none"
+				 document.getElementById('loading_script_tags').style.display = "block"
+				 }
+
+				*/
 
 				if (arrScriptIndex < arrScriptTags.length) {
 					if (arrScriptIndex < 1) {
@@ -63,7 +64,7 @@
 					_gMainApplication.setUp({
 						screenNames : arrDivNames
 					})
-					_gMainApplication.nextTransition();
+					_gMainApplication.nextScene();
 
 				}
 			}
@@ -133,46 +134,33 @@
 			window.addEventListener ? window.addEventListener("load", startLoadingAssets, false) : window.attachEvent && window.attachEvent("onload", startLoadingAssets);
 
 		</script>
+		<script type="html/template" id = "loading_screen_ui">
+			<div id="loadingScreen_front" style="width: 240px;height: 240px;">
+			IMAGE TAG SHD
+			</div>
+			<div id="loadingMessage">
+			Loading 24 %
+			</div>
+		</script>
 
-<div id="viewporter">
-<div> 
-  <h2>High Performance Nation Challenge</h2><span style="font-size:14px">We have actively supporting India's drive to become a High Performance Nation, with a vision to ensure a better future for our country, our people and our business community. This game delivers the highlights of this progress in a fast-paced format. How much do you know about India's growth story towards high performance? Take the High Performance Nation Challenge today and find out!</span>
-  <br><br>
-</div>
-<div class="outerDiv">
-<div class="mainDiv">
-<div style="background-color: rgb(156, 153, 153); margin-top: -14px; margin-right: auto; margin-bottom: 0px; margin-left: -15px; width: 905px; height: 600px; color: white; display: none; " id="loading_script_tags"><span style="position:absolute;margin-top:240px;margin-left:325px;font-size:50px"></span></div>
-<div style="display: block; " id="appContainer">
-<div style="margin-top: 115px; margin-left: 285px; display: block; " id="loadingScreen"><div id="loadingScreen_front" style="width: 240px;height: 240px;"><img src="/in-en/PublishingImages/origami/splash/Loader2.png"></div><div id="loadingMessage">Loading 24 %</div></div>
-<div style="font-size: 15px; display: none; " id="splashScreen">
-<h1 style="margin-top:20px;margin-left:30px">Introduction</h1>
-<div class="introScreenLeft">
-<div>
-<p style="line-height:25px;margin-top:30px !important;margin-left:30px;font-size:15px !important" class="intropara">India is on an important journey to become a High<br>Performance Nation and Accenture is proud to be a part<br>of it. Our vision for this journey is built on four strong<br>pillars:</p>
-<div class="introImgs"><img src="/in-en/PublishingImages/origami/images/only_birds.png"></div></div></div>
-<div class="introScreen">
-<ul>
-<li>Digital Citizen 
-</li><li>Empowered People 
-</li><li>Innovation Economy 
-</li><li>Collaborative Ecosystem</li></ul>
-<p style="line-height:27px;margin-top:19px !important" class="introparaLeft">Each pillar conveys a distinct, strategic imperative and the <br>four pillars contribute to the evolution of a High<br>Performance Nation–represented by four birds riding on the<br>back of the Peacock, the nationalbird of India.</p>
-<p style="line-height:27px" class="introparaLeft">India: A Flight of Ideas celebrates this journey Join the<br>adventure by answering questions that will help create the<br>four origami birds, which descends on the Peacock–creating<br>a unified vision of our High Performance Nation</p>
-<div id="intro_play_now" class="playButton">Play now</div></div></div>
-<div style="display: none; " id="howtoplayScreen"></div>
-<div style="display: none; " id="new_intro_Anim"></div>
-<div style="display: none; " id="questionScreen"></div>
-<div style="display: none; " id="levelEndScreen"></div>
-<div style="display: none; " id="winnerScreen"></div></div></div>
-<div style="display: none; " id="sidePanel"></div>
-<div style="display: none; " id="overlayScreen" class="overlayScreenCSS">
-<div id="opaqueScreen_bg" class="opaqueScreenCSS"></div>
-<div id="opaqueScreen" class="opaqueScreenCSS_1">-1 </div>
-<div id="download_link" class="downloadTheImage"></div>
-<div id="clickOverlayClose" class="closeOverlay"></div></div>
-<div style="display: none; " id="overlayScreen_ForQuestion" class="overlayScreenCSS_ForQuestion">
-<div id="opaqueScreen_bg_forQuestion" class="overlayScreenCSS_ForQuestion"></div>
-<div id="opaqueScreen_ForQuestion" class="opaqueScreenCSS_ForQuestion"></div>
-<div id="clickQuestionTryAgain" class="closeOverlay_ForQuestion"></div></div></div></div>
+		<div id="viewporter">
+
+			<div class="outerDiv">
+				<div class="mainDiv">
+					<div style="background-color: rgb(156, 153, 153); margin-top: -14px; margin-right: auto; margin-bottom: 0px; margin-left: -15px; width: 905px; height: 600px; color: white; display: none; " id="loading_script_tags">
+						<span style="position:absolute;margin-top:240px;margin-left:325px;font-size:50px"></span>
+					</div>
+					<div style="display: block; " id="appContainer">
+						<div style="margin-top: 115px; margin-left: 285px; display: block; " id="loadingScreen">
+
+						</div>
+						<div id="landingPage">
+
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
 	</body>
 </html>
