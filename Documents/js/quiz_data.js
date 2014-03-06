@@ -210,14 +210,17 @@ var question_data = {
 
 var resource_data = {
 	images : {
-		'landing_lady' : ['landing/lady.png',null],
-		'landing_left_panel' : ['landing/left_panel.png',null]
+		'landing_lady' : ['landing/lady.png', null],
+		'landing_left_panel' : ['landing/left_panel.png', null]
 	},
 	dom : {//DIV NAMES
 		'loading' : 'loadingScreen',
-		'landing' : 'landingPage'
+		'landing' : 'landingPage',
+		'intro' : 'introductionPage',
+		'game' : 'gamePage',
+		'end':'endPage'
 	},
-	htmlentity : ['loading_screen_ui','landing_screen_ui'],
+	htmlentity : ['loading_screen_ui', 'landing_screen_ui', 'intro_screen_ui', 'game_screen_ui','end_screen_ui'],
 	appMode : 1, // 0 - xtreme debugging  mode OR 1 - dev mode OR 2 -live with no console
 
 }

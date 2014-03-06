@@ -31,9 +31,9 @@
 				return sTemp;
 			}
 
-			var arrScriptTags = new Array('css/quiz_style.css', 'js/lib/jquery-1.7.2.min.js', 'js/misc.js', 'js/quiz_data.js', 'js/loader.js', 'js/landing.js', 'js/quiz.js');
+			var arrScriptTags = new Array('css/quiz_style.css', 'js/lib/jquery-1.7.2.min.js', 'js/misc.js', 'js/quiz_data.js', 'js/loader.js', 'js/landing.js', 'js/intro.js', 'js/game.js', 'js/end.js', 'js/quiz.js');
 			var arrScriptIndex = 0;
-			var arrDivNames = new Array('loading_script_tags', 'landingPage')
+			var arrDivNames = new Array('loadingScreen', 'landingPage', 'introductionPage', 'gamePage', 'endPage');
 			function makeAllInvisible() {
 				for (var i = 0; i < arrDivNames.length; i++)
 					document.getElementById(arrDivNames[i]).style.display = 'none'
@@ -137,32 +137,55 @@
 		<script type="html/template" id = "loading_screen_ui">
 			<h1> LOADING PAGE </h1>
 			<div id="loadingScreen_front" style="width: 240px;height: 240px;">
-			 
+
 			</div>
 			<div id="loadingMessage">
 			Loading 24
 			</div>
 		</script>
 		<script type="html/template" id = "landing_screen_ui">
-				<div>
-					<h2> LANDING PAGE </h2>
-				</div>
+			<div>
+			<h2> LANDING PAGE </h2>
+			<div id="landing_btn_start"> START GAME </div>
+			<div id="landing_btn_intro"> INTRO GAME </div>
+			</div>
+		</script>
+		<script type="html/template" id = "intro_screen_ui">
+			<div>
+			<h2> INTRO PAGE </h2>
+			<div id="intro_btn_continue"> CONTINUE </div>
+			</div>
+		</script>
+		<script type="html/template" id = "game_screen_ui">
+			<div>
+			<h2> Game PAGE </h2>
+			<div id="dummy_end">END Screen</div>
+			</div>
+		</script>
+		<script type="html/template" id = "end_screen_ui">
+			<div>
+			<h2> END PAGE </h2>
+
+			</div>
 		</script>
 
 		<div id="viewporter">
 
 			<div class="outerDiv">
 				<div class="mainDiv">
-					<div style="background-color: rgb(156, 153, 153); margin-top: -14px; margin-right: auto; margin-bottom: 0px; margin-left: -15px; width: 905px; height: 600px; color: white; display: none; " id="loading_script_tags">
-						<span style="position:absolute;margin-top:240px;margin-left:325px;font-size:50px"></span>
-					</div>
+
 					<div style="display: block; " id="appContainer">
 						<div style="margin-top: 115px; margin-left: 285px; display: block; " id="loadingScreen">
 
 						</div>
 						<div id="landingPage">
-							
+
 						</div>
+						<div id="introductionPage">
+
+						</div>
+						<div id="gamePage"></div>
+						<div id="endPage"></div>
 					</div>
 				</div>
 

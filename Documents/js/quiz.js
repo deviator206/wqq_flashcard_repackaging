@@ -37,22 +37,54 @@ ApplicationWrapper.prototype = {
 		this.appMode = resource_data.appMode;
 		this.mHTMLTemplate = new HTMLTemplate();
 		this.mHTMLTemplate.loadTemplate(resource_data.htmlentity, 'script');
-		
 
 	},
 	setUp : function(d) {
 		this.mScreenManager = d.screenNames;
 		this.showScreen();
 	},
+	moveTo : function(str) {
+		var mTraker = ['start', 'intro', 'home'];
+		var mState = [60, 40, 20];
+
+		console.log(arguments);
+		if (mTraker.indexOf(str) !== -1)
+			this.nGameState = mState[mTraker.indexOf(str)];
+		else
+			trace(" INVALID GAME STATE " + str);
+
+		this.nextScene();
+
+	},
+	/*
+	 10 -  Loading
+	 20 - Landing
+	 40 - Intro
+	 60 - Actual Main Screen
+	 80 - End Screen
+	 * */
 	nextScene : function() {
+
 		switch(this.nGameState) {
 			case 10:
 				this.nGameState = 20;
 				this.mCurrentScreen = new LoadingScreen(this);
 				break;
 			case 20:
-				this.nGameState = 20;
+				this.nGameState = 40;
 				this.mCurrentScreen = new LandingScreen(this);
+				break;
+			case 40:
+				this.nGameState = 60;
+				this.mCurrentScreen = new IntroScreen(this);
+				break;
+			case 60:
+				this.nGameState = 80;
+				this.mCurrentScreen = new GameScreen(this);
+				break;
+			case 80:
+				this.nGameState = 20;
+				this.mCurrentScreen = new EndScreen(this);
 				break;
 
 		}
@@ -75,7 +107,11 @@ ApplicationWrapper.prototype = {
 
 	},
 	renderTemplate : function(id, data) {
-		return this.mHTMLTemplate.renderTemplate(id, data);
+		var mH = this.mHTMLTemplate.renderTemplate(id, data)
+		if (mH == undefined)
+			trace(" INVALID ID FOR TEMPLATING : " + id);
+
+		return (mH !== undefined) ? mH : "";
 	}
 }
 
