@@ -37,10 +37,12 @@ ApplicationWrapper.prototype = {
 		this.appMode = resource_data.appMode;
 		this.mHTMLTemplate = new HTMLTemplate();
 		this.mHTMLTemplate.loadTemplate(resource_data.htmlentity, 'script');
+		
 
 	},
 	setUp : function(d) {
 		this.mScreenManager = d.screenNames;
+		this.showScreen();
 	},
 	nextScene : function() {
 		switch(this.nGameState) {
@@ -57,13 +59,20 @@ ApplicationWrapper.prototype = {
 	},
 	showScreen : function(c) {
 		var a = 0;
-		for ( a = 0; a < this.mScreenManager.length; a++) {
-			if (c != this.mScreenManager[a]) {
+		if (c !== undefined) {
+			for ( a = 0; a < this.mScreenManager.length; a++) {
+				if (c != this.mScreenManager[a]) {
+					document.getElementById(this.mScreenManager[a]).style.display = "none"
+				} else {
+					document.getElementById(this.mScreenManager[a]).style.display = "block"
+				}
+			}
+		} else {
+			for ( a = 0; a < this.mScreenManager.length; a++) {
 				document.getElementById(this.mScreenManager[a]).style.display = "none"
-			} else {
-				document.getElementById(this.mScreenManager[a]).style.display = "block"
 			}
 		}
+
 	},
 	renderTemplate : function(id, data) {
 		return this.mHTMLTemplate.renderTemplate(id, data);

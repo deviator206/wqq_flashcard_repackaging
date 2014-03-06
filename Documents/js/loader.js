@@ -18,35 +18,26 @@ LoadingScreen.prototype = {
 		});
 		document.getElementById("loadingScreen").innerHTML = sHTML;
 
-		//
 
 		this.mGameAssetLoader = new PxLoader();
 		for (resourceKey in resource_data.images) {
-			if (resource_data.hasOwnProperty(resourceKey))
-				resource_data[resourceKey][1] = this.mGameAssetLoader.addImage(resource_data[resourceKey][0]);
+			if (resource_data.images.hasOwnProperty(resourceKey))
+				resource_data.images[resourceKey][1] = this.mGameAssetLoader.addImage(getAssetPath("img",resource_data.images[resourceKey][0]));
 		}
 
-		this.mGameAssetLoader.addProgressListener(this.onProgress.bind(this));
-		this.mGameAssetLoader.addCompletionListener(this.onComplete.bind(this));
+		this.mGameAssetLoader.addProgressListener(function(c) {
+			var a = (parseInt(c.completedCount / c.totalCount * 100) >> 0);
+			document.getElementById("loadingMessage").innerHTML = "Loading " + a + " %";
+			trace(c)
+
+		});
+		this.mGameAssetLoader.addCompletionListener(function() {
+			trace(" loading complete....");
+		});
 
 		this.mGameAssetLoader.start();
-	},
-	onProgress : function(c) {
-		var a = (parseInt(c.completedCount / c.totalCount * 100) >> 0);
-		document.getElementById("loadingMessage").innerHTML = "Loading " + a + " %";
-		/*if (a % 10 == 0) {
-		 if (a / 10 != 10) {
-		 var d = a / 10;
-		 while (document.getElementById("loadingScreen_front").hasChildNodes()) {
-		 document.getElementById("loadingScreen_front").removeChild(document.getElementById("loadingScreen_front").lastChild)
-		 }
-		 document.getElementById("loadingScreen_front").appendChild(this.mApplication.imgArray["loader_" + d])
-		 }
-		 }*/
-	},
-	onComplete : function(data) {
-		trace(" loading complete....");
 
+		trace(" loading..");
 	}
 }
 

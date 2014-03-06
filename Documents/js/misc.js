@@ -294,125 +294,94 @@ if (!Array.isArray) {
 	 v0.2
 	 */
 }
-
-/*!
-jsAnim: Powerful javascript animation
---------------------------------------------
-Copyright 2009 Kevin Dolan
--http://www.thekevindolan.com
-
-Code licensed under the MIT license
--See license.txt
-
-v0.2
-*/
-
-//These vars are used to hold all jsAnimManagers
 var jsAnimManagers = new Array();
 var jsAnimManagerId = 0;
-
 /*! public, accessible
  jsAnimManager object constructor
  Used by end-user to manage jsAnim objects
  Params:
  -[timestep] : time between frames, defaults to 40
  */
-function jsAnimManager(timestep) {
-
+function jsAnimManager(a) {
 	jsAnimManagers[jsAnimManagerId] = this;
 	this.myId = jsAnimManagerId;
 	jsAnimManagerId++;
-
-	if (timestep)
-		this.timestep = timestep;
-	else
-		this.timestep = 40;
-
+	if (a) {
+		this.timestep = a
+	} else {
+		this.timestep = 40
+	}
 	this.paused = false;
-
 	this.animObjects = new Array();
 	this.index = 0;
-
-	//Used internally to process a single frame of all active animations
 	this.step = function() {
 		if (!this.paused) {
 			for (x in this.animObjects) {
-				this.animObjects[x].step();
+				this.animObjects[x].step()
 			}
-			setTimeout("jsAnimManagers[" + this.myId + "].step()", this.timestep);
+			setTimeout("jsAnimManagers[" + this.myId + "].step()", this.timestep)
 		}
 	};
-
-	//Used internally to kill a jsAnimObject
-	this.kill = function(id) {
-		delete this.animObjects[id];
+	this.kill = function(c) {
+		delete this.animObjects[c]
 	};
-
 	/*! public
 	 Called to create a new animation object
 	 Params:
 	 -objId : id of object being controlled
 	 */
-	this.createAnimObject = function(objId) {
-		var el = document.getElementById(objId);
-		var id = this.index;
-		this.animObjects[id] = new jsAnimObject(el, id, this);
+	this.createAnimObject = function(c) {
+		var d = document.getElementById(c);
+		var e = this.index;
+		this.animObjects[e] = new jsAnimObject(d, e, this);
 		this.index++;
-		return this.animObjects[id];
+		return this.animObjects[e]
 	};
-
 	/*! public
 	 Called to pause the animation manager
 	 */
 	this.pause = function() {
-		this.paused = true;
+		this.paused = true
 	};
-
 	/*! public
 	 Called to unpause the animation manager
 	 */
 	this.resume = function() {
 		this.paused = false;
-		this.step();
+		this.step()
 	};
-
 	/*! public
 	 Called to set the appropriate style values to allow position to be controlled by jsAnim
 	 Params:
 	 -objId : id of object to be registered
 	 -[fixed] : fixed positioning, false to absolute fixed, defaults to false
 	 */
-	this.registerPosition = function(objId, fixed) {
-		var el = document.getElementById(objId);
-		var width = el.offsetWidth;
-		var height = el.offsetHeight;
-
-		if (fixed)
-			el.style.position = "fixed";
-		else
-			el.style.position = "absolute";
-
-		el.style.top = "0px";
-		el.style.left = "50%";
-		el.halfWidth = Math.floor(width / 2);
-		el.halfHeight = Math.floor(height / 2);
-		el.style.marginLeft = (-el.halfWidth) + "px";
-		el.style.marginTop = (-el.halfHeight) + "px";
-
-		el.positionRegistered = true;
-
+	this.registerPosition = function(d, h) {
+		var f = document.getElementById(d);
+		var e = f.offsetWidth;
+		var c = f.offsetHeight;
+		if (h) {
+			f.style.position = "fixed"
+		} else {
+			f.style.position = "absolute"
+		}
+		f.style.top = "0px";
+		f.style.left = "50%";
+		f.halfWidth = Math.floor(e / 2);
+		f.halfHeight = Math.floor(c / 2);
+		f.style.marginLeft = (-f.halfWidth) + "px";
+		f.style.marginTop = (-f.halfHeight) + "px";
+		f.positionRegistered = true;
 		/*! public
 		 Called to manually set the position of this object
 		 */
-		el.setPosition = function(x, y) {
-			this.style.marginLeft = (x - this.halfWidth) + "px";
-			this.style.marginTop = (y - this.halfHeight) + "px";
-		};
-
+		f.setPosition = function(i, j) {
+			this.style.marginLeft = (i - this.halfWidth) + "px";
+			this.style.marginTop = (j - this.halfHeight) + "px"
+		}
 	};
-
 	this.step();
-	return true;
+	return true
 }
 
 /*! accesible
@@ -422,35 +391,31 @@ function jsAnimManager(timestep) {
  -obj : object being animated
 
  */
-function jsAnimObject(obj, id, manager) {
-
-	this.id = id;
-	this.obj = obj;
+function jsAnimObject(c, d, a) {
+	this.id = d;
+	this.obj = c;
 	this.paused = false;
 	this.animEntries = new Array();
 	this.animLoops = new Array();
 	this.current = 0;
-	this.manager = manager;
-
+	this.manager = a;
 	this.step = function() {
 		if (!this.paused) {
-			//Ugly code to get only the first element in the array
 			for (x in this.animEntries) {
-				var finished = this.animEntries[x].step();
-				if (finished) {
+				var e = this.animEntries[x].step();
+				if (e) {
 					this.animLoops[x]--;
 					this.animEntries[x].current = 0;
-					this.animEntries[x].onLoop();
+					this.animEntries[x].onLoop()
 				}
 				if (this.animLoops[x] == 0) {
 					this.animEntries[x].onComplete();
-					delete this.animEntries[x];
+					delete this.animEntries[x]
 				}
-				break;
+				break
 			}
 		}
 	};
-
 	/*! public
 	 Called to add an animation to the chain
 	 Params:
@@ -464,71 +429,65 @@ function jsAnimObject(obj, id, manager) {
 	 - [onLoop] : the callback function for loop completion
 	 - [onComplete] : the callback function for animation completion
 	 */
-	this.add = function(params) {
-
-		var property = params.property;
-		var from = params.from
-		var to = params.to;
-		var duration = params.duration;
-		if (params.ease)
-			var ease = params.ease;
-		else
-			var ease = jsAnimEase.linear;
-		if (params.loop)
-			var loop = params.loop;
-		else
-			var loop = 1;
-		if (params.onLoop)
-			var onLoop = params.onLoop;
-		else
-			var onLoop = function() {
-			};
-		if (params.onComplete)
-			var onComplete = params.onComplete;
-		else
-			var onComplete = function() {
-			};
-
-		this.animEntries[this.current] = new jsAnimEntry(this.obj, property, from, to, duration, this.manager.timestep, ease, onLoop, onComplete);
-		this.animLoops[this.current] = loop;
-
-		this.current++;
-
+	this.add = function(h) {
+		var n = h.property;
+		var l = h.from;
+		var m = h.to;
+		var j = h.duration;
+		if (h.ease) {
+			var i = h.ease
+		} else {
+			var i = jsAnimEase.linear
+		}
+		if (h.loop) {
+			var k = h.loop
+		} else {
+			var k = 1
+		}
+		if (h.onLoop) {
+			var f = h.onLoop
+		} else {
+			var f = function() {
+			}
+		}
+		if (h.onComplete) {
+			var e = h.onComplete
+		} else {
+			var e = function() {
+			}
+		}
+		this.animEntries[this.current] = new jsAnimEntry(this.obj, n, l, m, j, this.manager.timestep, i, f, e);
+		this.animLoops[this.current] = k;
+		this.current++
 	};
-
 	/*! public
 	 Called to skip the current animation, can be used to exit an infinite loop
 	 */
 	this.skip = function() {
-		//Ugly code to get only the first element in the array
 		for (x in this.animEntries) {
 			delete this.animEntries[x];
-			break;
+			break
 		}
 	};
-
 	/*! public
 	 Called to pause this animator
 	 */
 	this.pause = function() {
-		this.paused = true;
+		this.paused = true
 	};
-
 	/*! public
 	 Called to resum this animator
 	 */
 	this.resume = function() {
-		this.paused = false;
+		this.paused = false
 	};
-
 	/*! public
 	 Called to kill this animator
 	 */
 	this.kill = function() {
-		this.manager.kill(this.id);
+		this.manager.kill(this.id)
 	};
-
-	return true;
+	return true
 }
 
 /*! public, accesible
@@ -539,15 +498,10 @@ function jsAnimObject(obj, id, manager) {
  -x : x coordinate, 0 is center, negative is left, positive is right
  -y : y coordinate, 0 is top, positive id below
  */
-function Pos(x, y) {
-
-	//public
-	this.x = x;
-
-	//public
-	this.y = y;
-
-	return true;
+function Pos(a, c) {
+	this.x = a;
+	this.y = c;
+	return true
 }
 
 /*! public, accesible
@@ -557,15 +511,10 @@ function Pos(x, y) {
  -w : width
  -h : height
  */
-function Dim(w, h) {
-
-	//public
-	this.w = w;
-
-	//public
-	this.h = h;
-
-	return true;
+function Dim(a, c) {
+	this.w = a;
+	this.h = c;
+	return true
 }
 
 /*! public, accesible
@@ -576,18 +525,11 @@ function Dim(w, h) {
  -g : green value (0,255)
  -b : blue value (0,255)
  */
-function Col(r, g, b) {
-
-	//public
-	this.r = r;
-
-	//public
-	this.g = g;
-
-	//public
-	this.b = b;
-
-	return true;
+function Col(d, c, a) {
+	this.r = d;
+	this.g = c;
+	this.b = a;
+	return true
 }
 
 /*!
@@ -603,41 +545,38 @@ function Col(r, g, b) {
  -onLoop : called after each loop
  -onComplete : called after completion
  */
-function jsAnimEntry(obj, property, from, to, duration, timestep, ease, onLoop, onComplete) {
-
-	this.obj = obj;
-	this.property = property;
-	this.from = from;
-	this.to = to;
-	this.duration = duration;
-	this.timestep = timestep;
-	this.ease = ease;
+function jsAnimEntry(h, k, i, j, f, a, e, d, c) {
+	this.obj = h;
+	this.property = k;
+	this.from = i;
+	this.to = j;
+	this.duration = f;
+	this.timestep = a;
+	this.ease = e;
 	this.current = 0;
-	this.onLoop = onLoop;
-	this.onComplete = onComplete;
-
+	this.onLoop = d;
+	this.onComplete = c;
 	/*!
 	 Used internally to move the object one step
 	 Returns : true if this anim entry has completed, false otherwise
 	 */
 	this.step = function() {
-		if (!this.from)
-			this.from = this.property.current(this.obj);
-
+		if (!this.from) {
+			this.from = this.property.current(this.obj)
+		}
 		if (this.current >= this.duration) {
-			var p = this.ease.transform(1);
-			this.property.update(this.obj, this.from, this.to, p);
-			return true;
+			var m = this.ease.transform(1);
+			this.property.update(this.obj, this.from, this.to, m);
+			return true
 		} else {
-			var t = this.current / this.duration;
-			var p = this.ease.transform(t);
-			this.property.update(this.obj, this.from, this.to, p);
+			var l = this.current / this.duration;
+			var m = this.ease.transform(l);
+			this.property.update(this.obj, this.from, this.to, m);
 			this.current += this.timestep;
-			return false;
+			return false
 		}
 	};
-
-	return true;
+	return true
 }
 
 /*! public
@@ -648,664 +587,601 @@ function jsAnimEntry(obj, property, from, to, duration, timestep, ease, onLoop, 
  to a new number 0-1 representing a progress proportion
  */
 var jsAnimEase = {
-
 	/*!public
 	 Constant Rate
 	 */
 	linear : {
-		transform : function(t) {
-			return t;
+		transform : function(a) {
+			return a
 		}
 	},
-
 	/*!public
 	 Starts slow, then speeds up
 	 */
 	parabolicPos : {
-		transform : function(t) {
-			return t * t;
+		transform : function(a) {
+			return a * a
 		}
 	},
-
 	/*!public
 	 Starts fast, then slows down
 	 */
 	parabolicNeg : {
-		transform : function(t) {
-			return 1 - (t - 1) * (t - 1);
+		transform : function(a) {
+			return 1 - (a - 1) * (a - 1)
 		}
 	},
-
 	/*!public
 	 Overshoots target then returns to target
 	 Params:
 	 -g : overshoot amount [0-1]
 	 */
-	backout : function(g) {
+	backout : function(a) {
 		return {
-			transform : function(t) {
-				return (-1 * t * (t + g - 2)) / (1 - g);
+			transform : function(c) {
+				return (-1 * c * (c + a - 2)) / (1 - a)
 			}
-		};
+		}
 	},
-
 	/*!public
 	 Backs up a bit then moves to target
 	 Params:
 	 -g : backup amount [0-1]
 	 */
-	backin : function(g) {
+	backin : function(a) {
 		return {
-			transform : function(t) {
-				return 1 + ((t + 1 - g) * ((t + 1 - g) + g - 2)) / (1 - g);
+			transform : function(c) {
+				return 1 + ((c + 1 - a) * ((c + 1 - a) + a - 2)) / (1 - a)
 			}
-		};
+		}
 	},
-
 	/*!public
 	 Goes to target and then back at constant rate
 	 */
 	bounceLinear : {
-		transform : function(t) {
-			if (t < 0.5)
-				return 2 * t;
-			else
-				return 1 - 2 * (t - 0.5)
+		transform : function(a) {
+			if (a < 0.5) {
+				return 2 * a
+			} else {
+				return 1 - 2 * (a - 0.5)
+			}
 		}
 	},
-
 	/*!public
 	 Goes to target and then back at variable rate
 	 */
 	bounceParabolic : {
-		transform : function(t) {
-			return -4 * t * (t - 1);
+		transform : function(a) {
+			return -4 * a * (a - 1)
 		}
 	},
-
 	/*!public
 	 Goes to target and then back smoothly
 	 */
 	bounceSmooth : {
-		transform : function(t) {
-			return 0.5 - 0.5 * Math.cos(2 * Math.PI * t);
+		transform : function(a) {
+			return 0.5 - 0.5 * Math.cos(2 * Math.PI * a)
 		}
 	}
 }
-
 /*!
  Utility objects for internal use
- */
+ */;
 var jsAnimUtil = {
-
-	interp : function(v1, v2, percent) {
-		if (isNaN(v1))
-			v1 = 0;
-		if (isNaN(v2))
-			v2 = 0;
-		var v = v1 + percent * (v2 - v1);
-		return Math.floor(v);
+	interp : function(e, d, c) {
+		if (isNaN(e)) {
+			e = 0
+		}
+		if (isNaN(d)) {
+			d = 0
+		}
+		var a = e + c * (d - e);
+		return Math.floor(a)
 	},
-
-	getCSS : function(elem, field) {
-		var css = document.defaultView && document.defaultView.getComputedStyle ? document.defaultView.getComputedStyle(elem, null) : elem.currentStyle || elem.style;
-		return css[field];
+	getCSS : function(c, d) {
+		var a = document.defaultView && document.defaultView.getComputedStyle ? document.defaultView.getComputedStyle(c, null) : c.currentStyle || c.style;
+		return a[d]
 	},
-
-	explode : function(delimiter, string, limit) {
-		// http://kevin.vanzonneveld.net
-		// +     original by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
-		// +     improved by: kenneth
-		// +     improved by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
-		// +     improved by: d3x
-		// +     bugfixed by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
-		// *     example 1: explode(' ', 'Kevin van Zonneveld');
-		// *     returns 1: {0: 'Kevin', 1: 'van', 2: 'Zonneveld'}
-		// *     example 2: explode('=', 'a=bc=d', 2);
-		// *     returns 2: ['a', 'bc=d']
-
-		var emptyArray = {
-			0 : ''
+	explode : function(d, f, a) {
+		var h = {
+			0 : ""
 		};
-
-		// third argument is not required
-		if (arguments.length < 2 || typeof arguments[0] == 'undefined' || typeof arguments[1] == 'undefined') {
-			return null;
+		if (arguments.length < 2 || typeof arguments[0] == "undefined" || typeof arguments[1] == "undefined") {
+			return null
 		}
-
-		if (delimiter === '' || delimiter === false || delimiter === null) {
-			return false;
+		if (d === "" || d === false || d === null) {
+			return false
 		}
-
-		if ( typeof delimiter == 'function' || typeof delimiter == 'object' || typeof string == 'function' || typeof string == 'object') {
-			return emptyArray;
+		if ( typeof d == "function" || typeof d == "object" || typeof f == "function" || typeof f == "object") {
+			return h
 		}
-
-		if (delimiter === true) {
-			delimiter = '1';
+		if (d === true) {
+			d = "1"
 		}
-
-		if (!limit) {
-			return string.toString().split(delimiter.toString());
+		if (!a) {
+			return f.toString().split(d.toString())
 		} else {
-			// support for limit argument
-			var splitted = string.toString().split(delimiter.toString());
-			var partA = splitted.splice(0, limit - 1);
-			var partB = splitted.join(delimiter.toString());
-			partA.push(partB);
-			return partA;
+			var i = f.toString().split(d.toString());
+			var e = i.splice(0, a - 1);
+			var c = i.join(d.toString());
+			e.push(c);
+			return e
 		}
 	}
 }
-
 /*! public
  Prop objects
  Used to keep track of which property is being controlled
  Methods:
  update : update the property to where it should be at the given time
  current : return a natural representation of the current property
- */
+ */;
 var Prop = {
 	/*! public
 	 Wait, while doing no animating
 	 */
 	wait : {
-		update : function(obj, from, to, percent) {
+		update : function(c, e, d, a) {
 		},
-		current : function(obj) {
-			return 0;
+		current : function(a) {
+			return 0
 		}
 	},
-
 	/*! public
 	 Follows a linear path
 	 */
 	position : {
-		update : function(obj, from, to, percent) {
-			var x = jsAnimUtil.interp(from.x, to.x, percent);
-			var y = jsAnimUtil.interp(from.y, to.y, percent);
-
-			obj.setPosition(x, y);
+		update : function(d, h, f, c) {
+			var a = jsAnimUtil.interp(h.x, f.x, c);
+			var e = jsAnimUtil.interp(h.y, f.y, c);
+			d.setPosition(a, e)
 		},
-
-		current : function(obj) {
-			var left = parseInt(obj.style.marginLeft);
-			var top = parseInt(obj.style.marginTop);
-			var x = left + obj.halfWidth;
-			var y = top + obj.halfHeight;
-			return new Pos(x, y);
+		current : function(e) {
+			var d = parseInt(e.style.marginLeft);
+			var c = parseInt(e.style.marginTop);
+			var a = d + e.halfWidth;
+			var f = c + e.halfHeight;
+			return new Pos(a, f)
 		}
 	},
-
 	/*! public
 	 Follows a semicircular path
 	 Params:
 	 -clockwise : True for clockwise, false otherwise
 	 */
-	positionSemicircle : function(clockwise) {
+	positionSemicircle : function(a) {
 		return {
-			update : function(obj, from, to, percent) {
-				var centerX = (from.x + to.x) / 2;
-				var centerY = (from.y + to.y) / 2;
-
-				var h = centerY - from.y;
-				var w = from.x - centerX;
-
-				var dist = Math.sqrt(h * h + w * w);
-
-				if (w == 0) {
-					if (h > 0)
-						var initAngle = -Math.PI / 2;
-					else
-						var initAngle = Math.PI / 2;
+			update : function(j, q, s, m) {
+				var i = (q.x + s.x) / 2;
+				var e = (q.y + s.y) / 2;
+				var k = e - q.y;
+				var t = q.x - i;
+				var n = Math.sqrt(k * k + t * t);
+				if (t == 0) {
+					if (k > 0) {
+						var c = -Math.PI / 2
+					} else {
+						var c = Math.PI / 2
+					}
 				} else {
-					var atan = Math.atan(h / Math.abs(w));
-					if (w > 0)
-						var initAngle = atan;
-					else {
-						var initAngle = Math.PI - atan;
+					var f = Math.atan(k / Math.abs(t));
+					if (t > 0) {
+						var c = f
+					} else {
+						var c = Math.PI - f
 					}
 				}
-
-				if (clockwise)
-					var addAngle = -percent * Math.PI;
-				else
-					var addAngle = percent * Math.PI;
-
-				var angle = initAngle + addAngle;
-
-				var x = Math.floor(centerX + dist * Math.cos(angle));
-				var y = Math.floor(centerY - dist * Math.sin(angle));
-
-				obj.setPosition(x, y);
+				if (a) {
+					var l = -m * Math.PI
+				} else {
+					var l = m * Math.PI
+				}
+				var d = c + l;
+				var p = Math.floor(i + n * Math.cos(d));
+				var o = Math.floor(e - n * Math.sin(d));
+				j.setPosition(p, o)
 			},
-
-			current : function(obj) {
-				var left = parseInt(obj.style.marginLeft);
-				var top = parseInt(obj.style.marginTop);
-				var x = left + obj.halfWidth;
-				var y = top + obj.halfHeight;
-				return new Pos(x, y);
+			current : function(f) {
+				var e = parseInt(f.style.marginLeft);
+				var d = parseInt(f.style.marginTop);
+				var c = e + f.halfWidth;
+				var h = d + f.halfHeight;
+				return new Pos(c, h)
 			}
 		}
 	},
-
 	/*! public
 	 Follows a circular path through target then back to start
 	 Params:
 	 -clockwise : True for clockwise, false otherwise
 	 */
-	positionCircle : function(clockwise) {
+	positionCircle : function(a) {
 		return {
-			update : function(obj, from, to, percent) {
-				var centerX = (from.x + to.x) / 2;
-				var centerY = (from.y + to.y) / 2;
-
-				var h = centerY - from.y;
-				var w = from.x - centerX;
-
-				var dist = Math.sqrt(h * h + w * w);
-
-				if (w == 0) {
-					if (h > 0)
-						var initAngle = -Math.PI / 2;
-					else
-						var initAngle = Math.PI / 2;
+			update : function(j, q, s, m) {
+				var i = (q.x + s.x) / 2;
+				var e = (q.y + s.y) / 2;
+				var k = e - q.y;
+				var t = q.x - i;
+				var n = Math.sqrt(k * k + t * t);
+				if (t == 0) {
+					if (k > 0) {
+						var c = -Math.PI / 2
+					} else {
+						var c = Math.PI / 2
+					}
 				} else {
-					var atan = Math.atan(h / Math.abs(w));
-					if (w > 0)
-						var initAngle = atan;
-					else {
-						var initAngle = Math.PI - atan;
+					var f = Math.atan(k / Math.abs(t));
+					if (t > 0) {
+						var c = f
+					} else {
+						var c = Math.PI - f
 					}
 				}
-
-				if (clockwise)
-					var addAngle = 2 * percent * Math.PI;
-				else
-					var addAngle = -2 * percent * Math.PI;
-
-				var angle = initAngle + addAngle;
-
-				var x = Math.floor(centerX + dist * Math.cos(angle));
-				var y = Math.floor(centerY + dist * Math.sin(angle));
-
-				obj.setPosition(x, y);
+				if (a) {
+					var l = 2 * m * Math.PI
+				} else {
+					var l = -2 * m * Math.PI
+				}
+				var d = c + l;
+				var p = Math.floor(i + n * Math.cos(d));
+				var o = Math.floor(e + n * Math.sin(d));
+				j.setPosition(p, o)
 			},
-
-			current : function(obj) {
-				var left = parseInt(obj.style.marginLeft);
-				var top = parseInt(obj.style.marginTop);
-				var x = left + obj.halfWidth;
-				var y = top + obj.halfHeight;
-				return new Pos(x, y);
+			current : function(f) {
+				var e = parseInt(f.style.marginLeft);
+				var d = parseInt(f.style.marginTop);
+				var c = e + f.halfWidth;
+				var h = d + f.halfHeight;
+				return new Pos(c, h)
 			}
 		}
 	},
-
-	//public
 	top : {
-		update : function(obj, from, to, percent) {
-			obj.style.top = jsAnimUtil.interp(from, to, percent) + "px";
+		update : function(c, e, d, a) {
+			c.style.top = jsAnimUtil.interp(e, d, a) + "px"
 		},
-
-		current : function(obj) {
-			return parseInt(jsAnimUtil.getCSS(obj, 'top'));
+		current : function(a) {
+			return parseInt(jsAnimUtil.getCSS(a, "top"))
 		}
 	},
-
-	//public
 	right : {
-		update : function(obj, from, to, percent) {
-			obj.style.right = jsAnimUtil.interp(from, to, percent) + "px";
+		update : function(c, e, d, a) {
+			c.style.right = jsAnimUtil.interp(e, d, a) + "px"
 		},
-
-		current : function(obj) {
-			return parseInt(jsAnimUtil.getCSS(obj, 'right'));
+		current : function(a) {
+			return parseInt(jsAnimUtil.getCSS(a, "right"))
 		}
 	},
-
-	//public
 	bottom : {
-		update : function(obj, from, to, percent) {
-			obj.style.bottom = jsAnimUtil.interp(from, to, percent) + "px";
+		update : function(c, e, d, a) {
+			c.style.bottom = jsAnimUtil.interp(e, d, a) + "px"
 		},
-
-		current : function(obj) {
-			return parseInt(jsAnimUtil.getCSS(obj, 'bottom'));
+		current : function(a) {
+			return parseInt(jsAnimUtil.getCSS(a, "bottom"))
 		}
 	},
-
-	//public
 	left : {
-		update : function(obj, from, to, percent) {
-			obj.style.left = jsAnimUtil.interp(from, to, percent) + "px";
+		update : function(c, e, d, a) {
+			c.style.left = jsAnimUtil.interp(e, d, a) + "px"
 		},
-
-		current : function(obj) {
-			return parseInt(jsAnimUtil.getCSS(obj, 'left'));
+		current : function(a) {
+			return parseInt(jsAnimUtil.getCSS(a, "left"))
 		}
 	},
-
-	//public
 	margin : {
-		update : function(obj, from, to, percent) {
-			obj.style.margin = jsAnimUtil.interp(from, to, percent) + "px";
+		update : function(c, e, d, a) {
+			c.style.margin = jsAnimUtil.interp(e, d, a) + "px"
 		},
-
-		current : function(obj) {
-			return parseInt(jsAnimUtil.getCSS(obj, 'margin'));
+		current : function(a) {
+			return parseInt(jsAnimUtil.getCSS(a, "margin"))
 		}
 	},
-
-	//public
 	marginTop : {
-		update : function(obj, from, to, percent) {
-			obj.style.marginTop = jsAnimUtil.interp(from, to, percent) + "px";
+		update : function(c, e, d, a) {
+			c.style.marginTop = jsAnimUtil.interp(e, d, a) + "px"
 		},
-
-		current : function(obj) {
-			return parseInt(jsAnimUtil.getCSS(obj, 'marginTop'));
+		current : function(a) {
+			return parseInt(jsAnimUtil.getCSS(a, "marginTop"))
 		}
 	},
-
-	//public
 	marginRight : {
-		update : function(obj, from, to, percent) {
-			obj.style.marginRight = jsAnimUtil.interp(from, to, percent) + "px";
+		update : function(c, e, d, a) {
+			c.style.marginRight = jsAnimUtil.interp(e, d, a) + "px"
 		},
-
-		current : function(obj) {
-			return parseInt(jsAnimUtil.getCSS(obj, 'marginRight'));
+		current : function(a) {
+			return parseInt(jsAnimUtil.getCSS(a, "marginRight"))
 		}
 	},
-
-	//public
 	marginBottom : {
-		update : function(obj, from, to, percent) {
-			obj.style.marginBottom = jsAnimUtil.interp(from, to, percent) + "px";
+		update : function(c, e, d, a) {
+			c.style.marginBottom = jsAnimUtil.interp(e, d, a) + "px"
 		},
-
-		current : function(obj) {
-			return parseInt(jsAnimUtil.getCSS(obj, 'marginBottom'));
+		current : function(a) {
+			return parseInt(jsAnimUtil.getCSS(a, "marginBottom"))
 		}
 	},
-
-	//public
 	marginLeft : {
-		update : function(obj, from, to, percent) {
-			obj.style.marginLeft = jsAnimUtil.interp(from, to, percent) + "px";
+		update : function(c, e, d, a) {
+			c.style.marginLeft = jsAnimUtil.interp(e, d, a) + "px"
 		},
-
-		current : function(obj) {
-			return parseInt(jsAnimUtil.getCSS(obj, 'marginLeft'));
+		current : function(a) {
+			return parseInt(jsAnimUtil.getCSS(a, "marginLeft"))
 		}
 	},
-
-	//public
 	padding : {
-		update : function(obj, from, to, percent) {
-			obj.style.padding = jsAnimUtil.interp(from, to, percent) + "px";
+		update : function(c, e, d, a) {
+			c.style.padding = jsAnimUtil.interp(e, d, a) + "px"
 		},
-
-		current : function(obj) {
-			return parseInt(jsAnimUtil.getCSS(obj, 'padding'));
+		current : function(a) {
+			return parseInt(jsAnimUtil.getCSS(a, "padding"))
 		}
 	},
-
-	//public
 	paddingTop : {
-		update : function(obj, from, to, percent) {
-			obj.style.paddingTop = jsAnimUtil.interp(from, to, percent) + "px";
+		update : function(c, e, d, a) {
+			c.style.paddingTop = jsAnimUtil.interp(e, d, a) + "px"
 		},
-
-		current : function(obj) {
-			return parseInt(jsAnimUtil.getCSS(obj, 'paddingTop'));
+		current : function(a) {
+			return parseInt(jsAnimUtil.getCSS(a, "paddingTop"))
 		}
 	},
-
-	//public
 	paddingRight : {
-		update : function(obj, from, to, percent) {
-			obj.style.paddingRight = jsAnimUtil.interp(from, to, percent) + "px";
+		update : function(c, e, d, a) {
+			c.style.paddingRight = jsAnimUtil.interp(e, d, a) + "px"
 		},
-
-		current : function(obj) {
-			return parseInt(jsAnimUtil.getCSS(obj, 'paddingRight'));
+		current : function(a) {
+			return parseInt(jsAnimUtil.getCSS(a, "paddingRight"))
 		}
 	},
-
-	//public
 	paddingBottom : {
-		update : function(obj, from, to, percent) {
-			obj.style.paddingBottom = jsAnimUtil.interp(from, to, percent) + "px";
+		update : function(c, e, d, a) {
+			c.style.paddingBottom = jsAnimUtil.interp(e, d, a) + "px"
 		},
-
-		current : function(obj) {
-			return parseInt(jsAnimUtil.getCSS(obj, 'paddingBottom'));
+		current : function(a) {
+			return parseInt(jsAnimUtil.getCSS(a, "paddingBottom"))
 		}
 	},
-
-	//public
 	paddingLeft : {
-		update : function(obj, from, to, percent) {
-			obj.style.paddingLeft = jsAnimUtil.interp(from, to, percent) + "px";
+		update : function(c, e, d, a) {
+			c.style.paddingLeft = jsAnimUtil.interp(e, d, a) + "px"
 		},
-
-		current : function(obj) {
-			return parseInt(jsAnimUtil.getCSS(obj, 'paddingLeft'));
+		current : function(a) {
+			return parseInt(jsAnimUtil.getCSS(a, "paddingLeft"))
 		}
 	},
-
-	//public
 	borderWidth : {
-		update : function(obj, from, to, percent) {
-			obj.style.borderWidth = jsAnimUtil.interp(from, to, percent) + "px";
+		update : function(c, e, d, a) {
+			c.style.borderWidth = jsAnimUtil.interp(e, d, a) + "px"
 		},
-
-		current : function(obj) {
-			return parseInt(jsAnimUtil.getCSS(obj, 'borderWidth'));
+		current : function(a) {
+			return parseInt(jsAnimUtil.getCSS(a, "borderWidth"))
 		}
 	},
-
-	//public
 	borderTopWidth : {
-		update : function(obj, from, to, percent) {
-			obj.style.borderTopWidth = jsAnimUtil.interp(from, to, percent) + "px";
+		update : function(c, e, d, a) {
+			c.style.borderTopWidth = jsAnimUtil.interp(e, d, a) + "px"
 		},
-
-		current : function(obj) {
-			return parseInt(jsAnimUtil.getCSS(obj, 'borderTopWidth'));
+		current : function(a) {
+			return parseInt(jsAnimUtil.getCSS(a, "borderTopWidth"))
 		}
 	},
-
-	//public
 	borderRightWidth : {
-		update : function(obj, from, to, percent) {
-			obj.style.borderRightWidth = jsAnimUtil.interp(from, to, percent) + "px";
+		update : function(c, e, d, a) {
+			c.style.borderRightWidth = jsAnimUtil.interp(e, d, a) + "px"
 		},
-
-		current : function(obj) {
-			return parseInt(jsAnimUtil.getCSS(obj, 'borderRightWidth'));
+		current : function(a) {
+			return parseInt(jsAnimUtil.getCSS(a, "borderRightWidth"))
 		}
 	},
-
-	//public
 	borderBottomWidth : {
-		update : function(obj, from, to, percent) {
-			obj.style.borderBottomWidth = jsAnimUtil.interp(from, to, percent) + "px";
+		update : function(c, e, d, a) {
+			c.style.borderBottomWidth = jsAnimUtil.interp(e, d, a) + "px"
 		},
-
-		current : function(obj) {
-			return parseInt(jsAnimUtil.getCSS(obj, 'borderBottomWidth'));
+		current : function(a) {
+			return parseInt(jsAnimUtil.getCSS(a, "borderBottomWidth"))
 		}
 	},
-
-	//public
 	borderLeftWidth : {
-		update : function(obj, from, to, percent) {
-			obj.style.borderLeftWidth = jsAnimUtil.interp(from, to, percent) + "px";
+		update : function(c, e, d, a) {
+			c.style.borderLeftWidth = jsAnimUtil.interp(e, d, a) + "px"
 		},
-
-		current : function(obj) {
-			return parseInt(jsAnimUtil.getCSS(obj, 'borderLeftWidth'));
+		current : function(a) {
+			return parseInt(jsAnimUtil.getCSS(a, "borderLeftWidth"))
 		}
 	},
-
-	//public
 	fontSize : {
-		update : function(obj, from, to, percent) {
-			obj.style.fontSize = jsAnimUtil.interp(from, to, percent) + "pt";
+		update : function(c, e, d, a) {
+			c.style.fontSize = jsAnimUtil.interp(e, d, a) + "pt"
 		},
-
-		current : function(obj) {
-			return parseInt(jsAnimUtil.getCSS(obj, 'fontSize'));
+		current : function(a) {
+			return parseInt(jsAnimUtil.getCSS(a, "fontSize"))
 		}
 	},
-
-	//public
 	height : {
-		update : function(obj, from, to, percent) {
-			var v = jsAnimUtil.interp(from, to, percent);
-
-			obj.style.height = v + "px";
-
-			//Update the position if registered
-			if (obj.positionRegistered) {
-				var y = parseInt(obj.style.marginTop) + obj.halfHeight;
-				obj.halfHeight = Math.floor(obj.offsetHeight / 2);
-				obj.style.marginTop = y - obj.halfHeight + "px";
+		update : function(d, h, f, c) {
+			var a = jsAnimUtil.interp(h, f, c);
+			d.style.height = a + "px";
+			if (d.positionRegistered) {
+				var e = parseInt(d.style.marginTop) + d.halfHeight;
+				d.halfHeight = Math.floor(d.offsetHeight / 2);
+				d.style.marginTop = e - d.halfHeight + "px"
 			}
 		},
-
-		current : function(obj) {
-			var ht = jsAnimUtil.getCSS(obj, 'height');
-			if (ht == "auto")
-				return obj.offsetHeight;
-			else
-				return parseInt(ht);
+		current : function(c) {
+			var a = jsAnimUtil.getCSS(c, "height");
+			if (a == "auto") {
+				return c.offsetHeight
+			} else {
+				return parseInt(a)
+			}
 		}
 	},
-
-	//public
 	width : {
-		update : function(obj, from, to, percent) {
-			var v = jsAnimUtil.interp(from, to, percent);
-
-			obj.style.width = v + "px";
-
-			//Update the position if registered
-			if (obj.positionRegistered) {
-				var x = parseInt(obj.style.marginLeft) + obj.halfWidth;
-				obj.halfWidth = Math.floor(obj.offsetWidth / 2);
-				obj.style.marginLeft = x - obj.halfWidth + "px";
+		update : function(e, h, f, d) {
+			var c = jsAnimUtil.interp(h, f, d);
+			e.style.width = c + "px";
+			if (e.positionRegistered) {
+				var a = parseInt(e.style.marginLeft) + e.halfWidth;
+				e.halfWidth = Math.floor(e.offsetWidth / 2);
+				e.style.marginLeft = a - e.halfWidth + "px"
 			}
 		},
-
-		current : function(obj) {
-			return parseInt(jsAnimUtil.getCSS(obj, 'width'));
+		current : function(a) {
+			return parseInt(jsAnimUtil.getCSS(a, "width"))
 		}
 	},
-
-	//public
 	dimension : {
-		update : function(obj, from, to, percent) {
-			var h = jsAnimUtil.interp(from.h, to.h, percent);
-			var w = jsAnimUtil.interp(from.w, to.w, percent);
-
-			obj.style.height = h + "px";
-			obj.style.width = w + "px";
-
-			//Update the position if registered
-			if (obj.positionRegistered) {
-				var y = parseInt(obj.style.marginTop) + obj.halfHeight;
-				obj.halfHeight = Math.floor(obj.offsetHeight / 2);
-				obj.style.marginTop = (y - obj.halfHeight) + "px";
-
-				var x = parseInt(obj.style.marginLeft) + obj.halfWidth;
-				obj.halfWidth = Math.floor(obj.offsetWidth / 2);
-				obj.style.marginLeft = (x - obj.halfWidth) + "px";
+		update : function(f, k, j, e) {
+			var d = jsAnimUtil.interp(k.h, j.h, e);
+			var c = jsAnimUtil.interp(k.w, j.w, e);
+			f.style.height = d + "px";
+			f.style.width = c + "px";
+			if (f.positionRegistered) {
+				var i = parseInt(f.style.marginTop) + f.halfHeight;
+				f.halfHeight = Math.floor(f.offsetHeight / 2);
+				f.style.marginTop = (i - f.halfHeight) + "px";
+				var a = parseInt(f.style.marginLeft) + f.halfWidth;
+				f.halfWidth = Math.floor(f.offsetWidth / 2);
+				f.style.marginLeft = (a - f.halfWidth) + "px"
 			}
 		},
-
-		current : function(obj) {
-			var ht = jsAnimUtil.getCSS(obj, 'height');
-			if (ht == "auto")
-				var h = obj.offsetHeight;
-			else
-				var h = parseInt(ht);
-			var w = parseInt(jsAnimUtil.getCSS(obj, 'width'));
-			return new Dim(w, h);
+		current : function(e) {
+			var c = jsAnimUtil.getCSS(e, "height");
+			if (c == "auto") {
+				var d = e.offsetHeight
+			} else {
+				var d = parseInt(c)
+			}
+			var a = parseInt(jsAnimUtil.getCSS(e, "width"));
+			return new Dim(a, d)
 		}
 	},
-
-	//public
 	color : {
-		update : function(obj, from, to, percent) {
-			r = jsAnimUtil.interp(from.r, to.r, percent);
-			g = jsAnimUtil.interp(from.g, to.g, percent);
-			b = jsAnimUtil.interp(from.b, to.b, percent);
-
-			obj.style.color = "rgb(" + r + "," + g + "," + b + ")";
+		update : function(c, e, d, a) {
+			r = jsAnimUtil.interp(e.r, d.r, a);
+			g = jsAnimUtil.interp(e.g, d.g, a);
+			b = jsAnimUtil.interp(e.b, d.b, a);
+			c.style.color = "rgb(" + r + "," + g + "," + b + ")"
 		},
-
-		current : function(obj) {
-			var color = jsAnimUtil.getCSS(obj, 'color');
-			color = color.substring(4, color.length - 1);
-			var rgb = jsAnimUtil.explode(",", color);
-			return new Col(parseInt(rgb[0]), parseInt(rgb[1]), parseInt(rgb[2]));
+		current : function(d) {
+			var a = jsAnimUtil.getCSS(d, "color");
+			a = a.substring(4, a.length - 1);
+			var c = jsAnimUtil.explode(",", a);
+			return new Col(parseInt(c[0]), parseInt(c[1]), parseInt(c[2]))
 		}
 	},
-
-	//public
 	backgroundColor : {
-		update : function(obj, from, to, percent) {
-			r = jsAnimUtil.interp(from.r, to.r, percent);
-			g = jsAnimUtil.interp(from.g, to.g, percent);
-			b = jsAnimUtil.interp(from.b, to.b, percent);
-
-			obj.style.backgroundColor = "rgb(" + r + "," + g + "," + b + ")";
+		update : function(c, e, d, a) {
+			r = jsAnimUtil.interp(e.r, d.r, a);
+			g = jsAnimUtil.interp(e.g, d.g, a);
+			b = jsAnimUtil.interp(e.b, d.b, a);
+			c.style.backgroundColor = "rgb(" + r + "," + g + "," + b + ")"
 		},
-
-		current : function(obj) {
-			var color = jsAnimUtil.getCSS(obj, 'backgroundColor');
-			color = color.substring(4, color.length - 1);
-			var rgb = jsAnimUtil.explode(",", color);
-
-			return new Col(parseInt(rgb[0]), parseInt(rgb[1]), parseInt(rgb[2]));
+		current : function(d) {
+			var a = jsAnimUtil.getCSS(d, "backgroundColor");
+			a = a.substring(4, a.length - 1);
+			var c = jsAnimUtil.explode(",", a);
+			return new Col(parseInt(c[0]), parseInt(c[1]), parseInt(c[2]))
 		}
 	},
-
-	//public
 	borderColor : {
-		update : function(obj, from, to, percent) {
-			r = jsAnimUtil.interp(from.r, to.r, percent);
-			g = jsAnimUtil.interp(from.g, to.g, percent);
-			b = jsAnimUtil.interp(from.b, to.b, percent);
-
-			obj.style.borderColor = "rgb(" + r + "," + g + "," + b + ")";
+		update : function(c, e, d, a) {
+			r = jsAnimUtil.interp(e.r, d.r, a);
+			g = jsAnimUtil.interp(e.g, d.g, a);
+			b = jsAnimUtil.interp(e.b, d.b, a);
+			c.style.borderColor = "rgb(" + r + "," + g + "," + b + ")"
 		},
-
-		current : function(obj) {
-			var color = jsAnimUtil.getCSS(obj, 'borderColor');
-			color = color.substring(4, color.length - 1);
-			var rgb = jsAnimUtil.explode(",", color);
-			return new Col(parseInt(rgb[0]), parseInt(rgb[1]), parseInt(rgb[2]));
+		current : function(d) {
+			var a = jsAnimUtil.getCSS(d, "borderColor");
+			a = a.substring(4, a.length - 1);
+			var c = jsAnimUtil.explode(",", a);
+			return new Col(parseInt(c[0]), parseInt(c[1]), parseInt(c[2]))
 		}
 	},
-
-	//public
 	opacity : {
-		update : function(obj, from, to, percent) {
-			v = jsAnimUtil.interp(100 * from, 100 * to, percent);
-			obj.style.opacity = v / 100;
+		update : function(c, e, d, a) {
+			v = jsAnimUtil.interp(100 * e, 100 * d, a);
+			c.style.opacity = v / 100
 		},
+		current : function(a) {
+			return jsAnimUtil.getCSS(a, "opacity")
+		}
+	}
+};
 
-		current : function(obj) {
-			return jsAnimUtil.getCSS(obj, 'opacity');
+function PxLoaderImage(a, k, h) {
+	var j = this, i = null;
+	this.img = new Image();
+	this.tags = k;
+	this.priority = h;
+	var c = function() {
+		if (j.img.readyState == "complete") {
+			d();
+			i.onLoad(j)
+		}
+	};
+	var f = function() {
+		d();
+		i.onLoad(j)
+	};
+	var e = function() {
+		d();
+		i.onError(j)
+	};
+	var d = function() {
+		j.unbind("load", f);
+		j.unbind("readystatechange", c);
+		j.unbind("error", e)
+	};
+	this.start = function(l) {
+		i = l;
+		j.bind("load", f);
+		j.bind("readystatechange", c);
+		j.bind("error", e);
+		j.img.src = a
+	};
+	this.checkStatus = function() {
+		if (j.img.complete) {
+			d();
+			i.onLoad(j)
+		}
+	};
+	this.onTimeout = function() {
+		d();
+		if (j.img.complete) {
+			i.onLoad(j)
+		} else {
+			i.onTimeout(j)
+		}
+	};
+	this.getName = function() {
+		return a
+	};
+	this.bind = function(l, m) {
+		if (j.img.addEventListener) {
+			j.img.addEventListener(l, m, false)
+		} else {
+			if (j.img.attachEvent) {
+				j.img.attachEvent("on" + l, m)
+			}
+		}
+	};
+	this.unbind = function(l, m) {
+		if (j.img.removeEventListener) {
+			j.img.removeEventListener(l, m, false)
+		} else {
+			if (j.img.detachEvent) {
+				j.img.detachEvent("on" + l, m)
+			}
 		}
 	}
 }
+
+PxLoader.prototype.addImage = function(d, c, e) {
+	var a = new PxLoaderImage(d, c, e);
+	this.add(a);
+	return a.img
+};
+
 
 // CUSTOM  CODE
 function setDivText(j, i, f, a, e, l, h) {
